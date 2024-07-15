@@ -1,5 +1,5 @@
 export default function App() {
   return (
-    <h1 className="text-3xl">App</h1>
+    <h1 className="text-3xl">New App</h1>
   )
 }
