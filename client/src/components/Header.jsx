@@ -6,9 +6,10 @@ import { FaMoon } from 'react-icons/fa'
 
 export default function Header() {
     const path = useLocation().pathname;
-    const activeColor = '#418D94'; // 从图像中提取的颜色代码
+    const activeColor = '#418D94';
+
     return (
-        <Navbar className='border-b-2'>
+        <Navbar className='border-b-2 sticky top-0 z-50 bg-white dark:bg-gray-900'>
             <Link to='/' className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
                 <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>News</span>
                 Today
@@ -29,7 +30,7 @@ export default function Header() {
                     <FaMoon />
                 </Button>
                 <Link to='/sign-in'>
-                    <Button gradientDuoTone='purpleToBlue'>
+                    <Button gradientDuoTone='purpleToBlue' outline>
                         Sign In
                     </Button>
                 </Link>
@@ -47,8 +48,8 @@ export default function Header() {
                     </Link>
                 </Navbar.Link>
                 <Navbar.Link as={'div'}>
-                    <Link to='/projects' className={`${path === '/projects' ? 'text-[#418D94] font-bold' : 'text-gray-700'}`}>
-                        Projects
+                    <Link to='/links' className={`${path === '/links' ? 'text-[#418D94] font-bold' : 'text-gray-700'}`}>
+                        Links
                     </Link>
                 </Navbar.Link>
             </Navbar.Collapse>
