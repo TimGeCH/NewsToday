@@ -6,6 +6,7 @@ import SignUp from './pages/SignUp'
 import Dashboard from './pages/Dashboard'
 import Links from './pages/Links'
 import Header from './components/Header'
+import Footer from './components/Footer'
 
 export default function App() {
   return (
@@ -20,7 +21,7 @@ export default function App() {
         <Route path='links' element={<Links />} />
 
       </Routes>
-
+      <Footer />
     </BrowserRouter>
   )
 }
