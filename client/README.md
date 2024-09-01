@@ -1,44 +1,19 @@
-# Progress Report
----
-## Tasks Completed This Week
+### Progress Report
 
-### Section 1: Introduction, Preview and Installation
-1. **Overview of the Project**
-   - Completed the overview of the project, understanding the basic goals and requirements.
+#### Tasks Completed This Week
 
-2. **Install React.js and Tailwind CSS and Set Up Basic Structure**
-   - Successfully installed React.js and Tailwind CSS, and set up the basic pages and routes.
+**Section 5: Redux Integration and JWT Authentication**
 
-### Section 2: Pages, Routes, and Header Component
-3. **Create Pages and Routes**
-   - Created pages and routes, enabling navigation between different pages.
+1. **Implement Redux for State Management**
+   - Integrated Redux to manage the state of the sign-in process. This includes handling actions like `SignInStart`, `SignInSuccess`, and `SignInFailure`, which control the login flow's loading, success, and error states. This setup ensures that the sign-in page reacts appropriately to user actions and backend responses.
 
-4. **Create Header Components**
-   - Created header components to ensure a consistent navigation bar across the application.
+2. **Sign-In API with JWT Authentication**
+   - Developed the sign-in API, which verifies user credentials and, upon successful authentication, generates a JWT. This JWT contains the user's unique database ID and is signed with a secret key (`JWT_SECRET`). The token is sent back to the client and used for maintaining authenticated sessions, allowing secure access to protected routes within the application. 
 
-#### Header Component Features
-   - **Logo and Home Link**: Displays the logo and navigates to the homepage.
-   - **Search Bar**: Includes a search input field that is visible on larger screens.
-   - **Search Button**: Provides a search button for smaller screens.
-   - **Theme Toggle**: Contains a button for toggling the theme (e.g., dark mode).
-   - **Sign-In Link**: Includes a button that links to the sign-in page.
-   - **Responsive Navigation**: Features a collapsible navigation menu that adapts to different screen sizes.
-   - **Active Link Highlight**: Highlights the active navigation link with a specified color.
+#### Tasks Planned for Next Week
 
-## Tasks Planned for Next Week
+1. **Implement Google OAuth Login**
+   - Plan to implement Google OAuth as an additional login method, allowing users to authenticate using their Google accounts.
 
-### Section 3: Create the Server and Connect to the Database
-1. **Create and Run the Server**
-   - Plan to create and run the server.
-
-2. **Connect to the Database**
-   - Plan to connect to the database to ensure data can be stored and retrieved.
-
-3. **Create User Model**
-   - Plan to create the user model, defining the structure of user data.
-
-4. **Create a Test API Route**
-   - Plan to create a test API route to verify the server and database connection.
-
-## Summary
-This week focused on initializing the frontend and creating basic components. Next week will shift focus to the backend, setting up the server, connecting to the database, and ensuring data flow and basic API functionality.
+2. **Add Dark Mode to the Website**
+   - Plan to introduce a dark mode feature, providing users with an alternative, visually comfortable theme for the website.
