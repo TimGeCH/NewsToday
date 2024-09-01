@@ -1,46 +1,21 @@
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
+import { set } from 'mongoose';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { SignInStart, SignInSuccess, SignInFailure } from '../redux/user/userSlice';
-import { useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const { loading, error: errorMessage } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.email || !formData.password) {
-      return dispatch(SignInFailure('Please fill all the fields'));
-    }
-    try {
-      dispatch(SignInStart());
-      const res = await fetch('/api/auth/signin', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-
-      if (!res.ok || data.success === false) {
-        // 如果响应不成功或者后端返回 success 为 false，触发失败逻辑
-        return dispatch(SignInFailure(data.message || 'Sign in failed'));
-      }
-
-      // 如果登录成功
-      dispatch(SignInSuccess(data));
-      navigate('/');
-    } catch (error) {
-      dispatch(SignInFailure(error.message));
-    }
+    // TODO
   };
-
 
   return (
     <div className='min-h-screen mt-20'>
@@ -54,12 +29,13 @@ export default function SignIn() {
             Today
           </Link>
           <p className='text-sm mt-5'>
-            Welcome back! Please sign in to your account.
+            Welcome! Please sign in with your email.
           </p>
         </div>
         {/* right */}
         <div className='flex-1'>
           <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+
             <div>
               <Label value='Your email' />
               <TextInput
@@ -73,7 +49,7 @@ export default function SignIn() {
               <Label value='Your password' />
               <TextInput
                 type='password'
-                placeholder='**********'
+                placeholder='Password'
                 id='password'
                 onChange={handleChange}
               />
@@ -83,14 +59,15 @@ export default function SignIn() {
               type='submit'
               disabled={loading}
             >
-              {loading ? (
-                <>
-                  <Spinner size='sm' />
-                  <span className='pl-3'>Loading...</span>
-                </>
-              ) : (
-                'Sign In'
-              )}
+              {
+                loading ? (
+                  <>
+                    <Spinner size='sm' />
+                    <span className='pl-3'>Loading...</span>
+                  </>
+                ) : (
+                  'Sign In'
+                )}
             </Button>
           </form>
           <div className='flex gap-2 text-sm mt-5'>

@@ -16,4 +16,4 @@
    - Plan to implement Google OAuth as an additional login method, allowing users to authenticate using their Google accounts.
 
 2. **Add Dark Mode to the Website**
-   - Plan to introduce a dark mode feature, providing users with an alternative, visually comfortable theme for the website.
+   - Plan to introduce a dark mode feature, providing users with an alternative, visually comfortable theme for the website..
