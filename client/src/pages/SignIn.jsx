@@ -1,21 +1,47 @@
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
-import { set } from 'mongoose';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { SignInStart, SignInSuccess, SignInFailure } from '../redux/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
-
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO
+    if (!formData.email || !formData.password) {
+      return dispatch(SignInFailure('Please fill all the fields'));
+    }
+    try {
+      dispatch(SignInStart());
+      const res = await fetch('/api/auth/signin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+
+      if (!res.ok || data.success === false) {
+        // 如果响应不成功或者后端返回 success 为 false，触发失败逻辑
+        return dispatch(SignInFailure(data.message || 'Sign in failed'));
+      }
+
+      // 如果登录成功
+      dispatch(SignInSuccess(data));
+      navigate('/');
+    } catch (error) {
+      dispatch(SignInFailure(error.message));
+    }
   };
+
+
 
   return (
     <div className='min-h-screen mt-20'>
