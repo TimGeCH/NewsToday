@@ -2,8 +2,9 @@ import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { SignInStart, SignInSuccess, SignInFailure } from '../redux/user/userSlice';
+import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
+import OAuth from '../components/OAuth';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
@@ -17,10 +18,10 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      return dispatch(SignInFailure('Please fill all the fields'));
+      return dispatch(signInFailure('Please fill all the fields'));
     }
     try {
-      dispatch(SignInStart());
+      dispatch(signInStart());
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -29,15 +30,13 @@ export default function SignIn() {
       const data = await res.json();
 
       if (!res.ok || data.success === false) {
-        // 如果响应不成功或者后端返回 success 为 false，触发失败逻辑
-        return dispatch(SignInFailure(data.message || 'Sign in failed'));
+        return dispatch(signInFailure(data.message || 'Sign in failed'));
       }
 
-      // 如果登录成功
-      dispatch(SignInSuccess(data));
+      dispatch(signInSuccess(data));
       navigate('/');
     } catch (error) {
-      dispatch(SignInFailure(error.message));
+      dispatch(signInFailure(error.message));
     }
   };
 
@@ -95,6 +94,7 @@ export default function SignIn() {
                   'Sign In'
                 )}
             </Button>
+            <OAuth />
           </form>
           <div className='flex gap-2 text-sm mt-5'>
             <span>Don't have an account?</span>
