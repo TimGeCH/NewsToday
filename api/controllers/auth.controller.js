@@ -72,17 +72,23 @@ export const google = async (req, res, next) => {
     try {
         const user = await User.findOne({ email });
         if (user) {
+            // 更新用户的 profilePicture 为 googlePhotoUrl
+            user.profilePicture = googlePhotoUrl || user.profilePicture;
+            await user.save();  // 保存更新
+
             const token = jwt.sign(
                 { id: user._id, isAdmin: user.isAdmin },
                 process.env.JWT_SECRET
             );
+
             const { password, ...rest } = user._doc;
+            console.log('Returning existing user data:', { ...rest, profilePicture: user.profilePicture });
             res
                 .status(200)
                 .cookie('access_token', token, {
                     httpOnly: true,
                 })
-                .json(rest);
+                .json({ ...rest, profilePicture: user.profilePicture });
         } else {
             const generatedPassword =
                 Math.random().toString(36).slice(-8) +
@@ -102,6 +108,7 @@ export const google = async (req, res, next) => {
                 process.env.JWT_SECRET
             );
             const { password, ...rest } = newUser._doc;
+            console.log('Returning new user data:', rest);
             res
                 .status(200)
                 .cookie('access_token', token, {

@@ -30,7 +30,7 @@ export default function FooterCom() {
                                     About NEWSTODAY
                                 </Footer.Link>
                                 <Footer.Link
-                                    href='/contact'
+                                    href='http://www.linkedin.com/in/fanyu-ge-214586298'
                                     target='_blank'
                                     rel='noopener noreferrer'
                                 >
@@ -42,7 +42,7 @@ export default function FooterCom() {
                             <Footer.Title title='Follow us' />
                             <Footer.LinkGroup col>
                                 <Footer.Link
-                                    href='https://github.com/TimGeCH/NewsToday'
+                                    href='https://github.com/TimGeCH'
                                     target='_blank'
                                     rel='noopener noreferrer'
                                 >
