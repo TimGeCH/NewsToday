@@ -29,7 +29,7 @@ export default function OAuth() {
             if (res.ok) {
                 dispatch(signInSuccess({
                     ...data,
-                    profilePicture: data.profilePicture || googlePhotoUrl,  // 确保使用正确的头像URL
+                    profilePicture: data.profilePicture || googlePhotoUrl,  
                 }));
                 navigate('/');
             }
