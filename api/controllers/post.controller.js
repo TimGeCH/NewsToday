@@ -83,21 +83,21 @@ export const deletepost = async (req, res, next) => {
     }
 };
 
+import mongoose from 'mongoose';
+
 export const updatepost = async (req, res, next) => {
     if (!req.user.isAdmin || req.user.id !== req.params.userId) {
         return next(errorHandler(403, 'You are not allowed to update this post'));
     }
+
+    if (!mongoose.Types.ObjectId.isValid(req.params.postId)) {
+        return next(errorHandler(400, 'Invalid post ID'));
+    }
+
     try {
         const updatedPost = await Post.findByIdAndUpdate(
             req.params.postId,
-            {
-                $set: {
-                    title: req.body.title,
-                    content: req.body.content,
-                    category: req.body.category,
-                    image: req.body.image,
-                },
-            },
+            { $set: req.body },
             { new: true }
         );
         res.status(200).json(updatedPost);
