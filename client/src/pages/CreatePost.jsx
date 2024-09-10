@@ -103,6 +103,7 @@ export default function CreatePost() {
                         }
                     >
                         <option value='uncategorized'>Select a category</option>
+                        <option value='nz-news'>NZ News</option>
                         <option value='international-news'>International News</option>
                         <option value='entertainment-news'>Entertainment News</option>
                         <option value='sports-news'>Sports News</option>
